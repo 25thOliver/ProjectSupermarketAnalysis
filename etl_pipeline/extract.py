@@ -44,3 +44,13 @@ def extract_from_sheet(sheet_id, credentials_path):
     except Exception as e:
         logger.error(f"Failed to extract data from Google Sheet: {e}")
         raise
+    
+def extract_data(source_type='sheets', **kwargs):
+    # Factory function to handle extraction
+    if source_type.lower() == 'sheets':
+        return extract_from_sheet(
+            kwargs.get('sheet_id'),
+            kwargs.get('credentials_path')
+        )
+    else:
+        raise ValueError(f"Unsupported data source type: {source_type}")
