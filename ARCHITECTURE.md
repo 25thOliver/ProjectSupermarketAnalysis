@@ -70,3 +70,26 @@ I chose **Python 3.9**.
     * Slower execution speed compared to compiled languages like Go or Rust (though negligible for our dataset size).
 
 ---
+
+## 003. Docker Containerization
+
+### Status 
+Accepted
+
+### Context
+Historically, setting up ETL pipelines involves complex environment configuration (installing specific DB versions, Python dependencies, system libraries), leading to "it works on my machine" issues.
+
+### Decision
+I chose **Docker** and **Docker Compose** to containerize the entire stack.
+
+### Consequences
+* **Pros**:
+    * **Reproducibility**: The exeact environment is defined in code (`Dockerfile`, `docker-compose.yml`).
+    * **Isolation**: The database services run in their own sandboxes, preventing conflicts with local software.
+    * **Onboarding**: New developers only need to run `docker compose up` to start working.
+
+* **Cons**:
+    * Adds overhead to the development process (rebuilding images).
+    * Requires Docker to be installed on the host machine and knowledge to debug its issues.
+
+---
