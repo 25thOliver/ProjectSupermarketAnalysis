@@ -40,8 +40,8 @@ def main():
         print(transformed_data.head())
         logging.info(f"Transformed Data Shape: {transformed_data.shape}")    
         
-        except Exception as e:
-            logging.critical(f"ETL failed: {e}")
+    except Exception as e:
+        logging.critical(f"ETL failed: {e}")
 
 if __name__ == "__main__":
     main()
