@@ -30,8 +30,8 @@ def main():
             return
 
         logging.info("\nExtraction Sample...")
-        print(df.head())
-        logging.info(f"\nTotal rows extracted: {len(df)}")
+        print(data.head())
+        logging.info(f"\nTotal rows extracted: {len(data)}")
 
     except Exception as e:
         logging.critical(f"ETL failed: {e}")
