@@ -21,3 +21,7 @@ def extract_from_sheet(sheet_id, credentials_path):
             "https://spreadsheets.google.com/feeds",
             "https://www.googleapis.com/auth/drive"
         ]
+
+        # Authenticate
+        creds = ServiceAccountCredentials.from_json_keyfile_name(credentials_path, scope)
+        client = gspread.authorize(creds)
