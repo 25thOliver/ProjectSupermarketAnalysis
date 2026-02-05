@@ -32,16 +32,16 @@ def main():
         logging.info(f"Extracted {len(data)} rows.")
 
 
-    # 2. Transform
-    logging.info("Step 2: Transform")
-    transformed_data = transform_data(data)
+        # 2. Transform
+        logging.info("Step 2: Transform")
+        transformed_data = transform_data(data)
 
-    logging.info("\nTransformation Sample...")
-    print(transformed_data.head())
-    logging.info(f"Transformed Data Shape: {transformed_data.shape}")    
-    
-    except Exception as e:
-        logging.critical(f"ETL failed: {e}")
+        logging.info("\nTransformation Sample...")
+        print(transformed_data.head())
+        logging.info(f"Transformed Data Shape: {transformed_data.shape}")    
+        
+        except Exception as e:
+            logging.critical(f"ETL failed: {e}")
 
 if __name__ == "__main__":
     main()
