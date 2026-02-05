@@ -23,3 +23,14 @@ I decided to implement a **Dual Database Strategy**, loading transformed data in
 
 * **Cons**:
     * Rigid schema requires migration scripts for every change in upstream data structure.
+
+#### MongoDB (Document Store)
+* **Pros**:
+    * **Schema Flexibility**: Can ingest new fields from the source without immediate code changes.
+    * **JSON-native**: Maps 1:1 with modern application APIs.
+    * **Scalability**: easier to scale horizontally for massive datasets in the future.
+
+* **Cons**:
+    * Weaker consistency guarantees compared to Postgres.
+    * Complex joins are more difficult to perform than in SQL.
+
