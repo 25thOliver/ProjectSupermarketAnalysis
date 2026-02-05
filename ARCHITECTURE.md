@@ -43,3 +43,30 @@ I decided to implement a **Dual Database Strategy**, loading transformed data in
 
 ### Future Considerations
 * If data volume grows > 10TB, we might separate these loads into asynchronous queues (e.g., using RabbitMQ or Kafka) so that  a failure in Postgres doesn't block the load to Mongo.
+
+---
+
+## 002. Python as the Core Language
+
+### Status
+Accepted
+
+### Context
+I needed a programming language to handle extraction, transformation, and loading (ETL) logic. The language needed to support:
+1. Robust libraries for data amanipulation.
+2. Easy connectivity to various APIs (Google Sheets) and Databases.
+3. Readability for future maintenance.
+
+### Decision 
+I chose **Python 3.9**.
+
+### Consequences
+* **Pros**:
+    * **Ecosystem**: Access to `pandas` (industry standard for data), `gspread` (Sheets API), and `SQLAlchemy`.
+    * **Development Speed**: Python's simple syntax allows for rapid prototyping of ETL scripts.
+    * **Community**: Vast support for any data-related issue I might encounter.
+
+* **Cons**:
+    * Slower execution speed compared to compiled languages like Go or Rust (though negligible for our dataset size).
+
+---
