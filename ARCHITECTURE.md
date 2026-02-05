@@ -40,3 +40,6 @@ I decided to implement a **Dual Database Strategy**, loading transformed data in
     * `Pandas` for data manipulation and cleaning.
     * `SQLAlchemy` (ORM) was chosen for Postgres to abstract SQL syntax and provide security against injection.
     * `PyMongo` was chosen for MongoDB for its lightweight and direct driver support.
+
+### Future Considerations
+* If data volume grows > 10TB, we might separate these loads into asynchronous queues (e.g., using RabbitMQ or Kafka) so that  a failure in Postgres doesn't block the load to Mongo.
