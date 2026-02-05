@@ -93,3 +93,30 @@ I chose **Docker** and **Docker Compose** to containerize the entire stack.
     * Requires Docker to be installed on the host machine and knowledge to debug its issues.
 
 ---
+
+## 004. Modular Pipeline Design
+
+### Status 
+Accepted
+
+### Context
+ETL scripts often grow into single, monolithic files (`script.py`) that are hard to debug and test. I needed a structure that promotes separation of concerns and makes the pipeline easier to maintain and scale in the future.
+
+### Decision 
+I implemented a **Modular Design** separating concerns into distinct files: 
+- `config.py`: Manages configuration and environment variables.
+- `extract.py`: Handles data extraction from the source.
+- `transform.py`: Performs data cleaning and transformation.
+- `load_postgres.py`: Loads data into PostgreSQL.
+- `load_mongo.py`: Loads data into MongoDB.
+- `main.py`: Orchestrates the ETL pipeline.
+
+### Consequences
+* **Pros**:
+    * **Testability**: We can test the `transform` logic independently of the database connection.
+    * **Maintainability**: A change in the "Extract" logic (e.g. switching from Google Sheets to a CSV) doesn't break the "Load" logic.
+    * **Scalability**: We can easily add a new "Load" step (e.g. to Snowflake) without modifying the rest of the pipeline.
+    * **Readability**: The `main.py` clearly shows high-level flow of data.
+
+* **Cons**:
+    * Slightly more boilerplate code (imports, shared config) compared to a single script.
