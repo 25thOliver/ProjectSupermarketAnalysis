@@ -1,6 +1,7 @@
 from etl_pipeline.config import Config
 from etl_pipeline.extract import extract_data
 from etl_pipeline.transform import transform_data
+from etl_pipeline.load_postgres import load_to_postgres
 import sys
 import logging
 
