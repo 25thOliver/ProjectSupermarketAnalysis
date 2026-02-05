@@ -43,13 +43,13 @@ def main():
         logging.info("Step 3: Load to PostgreSQL")
         load_to_postgres(transformed_data, Config.POSTGRES_URL)
        
-       # Load to MongoDB
-       logging.info("Step 4: Load to MongoDB")
-       load_to_mongo(
-            transformed_data,
-            Config.MONGO_URI,
-            Config.MONGO_DB
-        )
+        # Load to MongoDB
+        logging.info("Step 4: Load to MongoDB")
+        load_to_mongo(
+                transformed_data,
+                Config.MONGO_URI,
+                Config.MONGO_DB
+            )
 
         logging.info("\nETL pipeline completed successfully.")
         
