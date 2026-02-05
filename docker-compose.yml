@@ -27,7 +27,7 @@ services:
       - etl_network
 
   etl-app:
-    build:
+    build: .
     container_name: supermarket_etl
     depends_on:
       - postgres
