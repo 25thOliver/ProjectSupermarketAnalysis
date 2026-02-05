@@ -25,3 +25,22 @@ def extract_from_sheet(sheet_id, credentials_path):
         # Authenticate
         creds = ServiceAccountCredentials.from_json_keyfile_name(credentials_path, scope)
         client = gspread.authorize(creds)
+
+        # Try open the sheet by key
+        sheet = client.open_by_key(sheet_id).sheet1 # This assumes data is in the first sheet
+
+        logger.info("Successfully connected to Google sheet. Downloading data...")
+        data = sheet.get_all_records()
+
+        if not data:
+            logger.warning("Sheet appears to be empty!")
+            return pd.DataFrame()
+
+        # Convert to pandas DataFrame
+        df = pd.DataFrame(data)
+        logger.info(f"Successfully extracted {len(df)} rows from Google Sheet")
+        return df
+
+    except Exception as e:
+        logger.error(f"Failed to extract data from Google Sheet: {e}")
+        raise
