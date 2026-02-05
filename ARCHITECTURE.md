@@ -34,3 +34,9 @@ I decided to implement a **Dual Database Strategy**, loading transformed data in
     * Weaker consistency guarantees compared to Postgres.
     * Complex joins are more difficult to perform than in SQL.
 
+### Technical Implementation
+* **Orchestration**: A Python script acts as the controller, ensuring data flows to both systems in the same run.
+* **Library Choice**:
+    * `Pandas` for data manipulation and cleaning.
+    * `SQLAlchemy` (ORM) was chosen for Postgres to abstract SQL syntax and provide security against injection.
+    * `PyMongo` was chosen for MongoDB for its lightweight and direct driver support.
