@@ -23,7 +23,7 @@ class Config:
 
     # Google Sheets Config
     # The sheet ID extracted from the URL
-    https://docs.google.com/spreadsheets/d/1CHSfRQTla3Kkang7E_PptCKc6WYMIlzwDoe_hgMMajE/edit?usp=sharing
+    # https://docs.google.com/spreadsheets/d/1CHSfRQTla3Kkang7E_PptCKc6WYMIlzwDoe_hgMMajE/edit?usp=sharing
     GOOGLE_SHEET_ID = os.getenv("GOOGLE_SHEET_ID", "1CHSfRQTla3Kkang7E_PptCKc6WYMIlzwDoe_hgMMajE")
     GOOGLE_SHEETS_CREDENTIALS = os.getenv("GOOGLE_SHEETS_CREDENTIALS", "credentials.json")
 
