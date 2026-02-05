@@ -2,6 +2,7 @@ from etl_pipeline.config import Config
 from etl_pipeline.extract import extract_data
 from etl_pipeline.transform import transform_data
 from etl_pipeline.load_postgres import load_to_postgres
+from etl_pipeline.load_mongo import load_to_mongo
 import sys
 import logging
 
@@ -42,6 +43,15 @@ def main():
         logging.info("Step 3: Load to PostgreSQL")
         load_to_postgres(transformed_data, Config.POSTGRES_URL)
        
+       # Load to MongoDB
+       logging.info("Step 4: Load to MongoDB")
+       load_to_mongo(
+            transformed_data,
+            Config.MONGO_URI,
+            Config.MONGO_DB
+        )
+
+        logging.info("\nETL pipeline completed successfully.")
         
     except Exception as e:
         logging.critical(f"ETL failed: {e}")
