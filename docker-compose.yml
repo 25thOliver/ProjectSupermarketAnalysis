@@ -13,4 +13,16 @@ services:
     networks:
       - etl_network
 
+mongo:
+  image: mongo:6
+  container_name: supermarket_mongo
+  environment:
+    MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+    MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+  ports:
+    - "27020: 27017"
+  volumes:
+    - mongo_data:/data/db
+  networks:
+    - etl_network
       
