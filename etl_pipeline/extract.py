@@ -16,4 +16,8 @@ def extract_from_sheet(sheet_id, credentials_path):
         if not os.path.exists(credentials_path):
             raise FileNotFoundError(f"Credentials file not found at: {credentials_path}")
 
-        
+        # Define the scope
+        scope = [
+            "https://spreadsheets.google.com/feeds",
+            "https://www.googleapis.com/auth/drive"
+        ]
