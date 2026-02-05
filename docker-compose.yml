@@ -13,16 +13,38 @@ services:
     networks:
       - etl_network
 
-mongo:
-  image: mongo:6
-  container_name: supermarket_mongo
-  environment:
-    MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-    MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-  ports:
-    - "27020: 27017"
-  volumes:
-    - mongo_data:/data/db
-  networks:
-    - etl_network
-      
+  mongo:
+    image: mongo:6
+    container_name: supermarket_mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - "27020: 27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - etl_network
+
+  etl-app:
+    build:
+    container_name: supermarket_etl
+    depends_on:
+      - postgres
+      - mongo
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    networks:
+      - etl_network
+    # Keep the container running running so we can exec into it
+    command: tail -f /dev/null
+
+networks:
+  etl_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  mongo_data:     
