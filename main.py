@@ -22,8 +22,7 @@ def main():
             # Extract data
             data = extract_data(
                 source_type="sheets",
-                sheet_id=Config.GOOGLE_SHEET_ID,
-                credentials_path=Config.GOOGLE_SHEETS_CREDENTIALS
+                sheet_id=Config.GOOGLE_SHEET_ID
             )
         else:
             logging.error(f"Unknown data source: {Config.DATA_SOURCE_TYPE}")
