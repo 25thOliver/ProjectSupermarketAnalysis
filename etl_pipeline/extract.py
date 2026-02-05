@@ -1,56 +1,37 @@
 import pandas as pd 
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-import os
 import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def extract_from_sheet(sheet_id, credentials_path):
-    # Read data from Google sheet using gspread.
+def extract_from_public_sheet(sheet_id):
+    """
+    Reads data from a public Google Sheet using the CSV export URL.
+    Does NOT require authentication/credentials.
+    """
     try:
-        logger.info(f"Connecting to Google sheet ID: {sheet_id}")
-
-        if not os.path.exists(credentials_path):
-            raise FileNotFoundError(f"Credentials file not found at: {credentials_path}")
-
-        # Define the scope
-        scope = [
-            "https://spreadsheets.google.com/feeds",
-            "https://www.googleapis.com/auth/drive"
-        ]
-
-        # Authenticate
-        creds = ServiceAccountCredentials.from_json_keyfile_name(credentials_path, scope)
-        client = gspread.authorize(creds)
-
-        # Try open the sheet by key
-        sheet = client.open_by_key(sheet_id).sheet1 # This assumes data is in the first sheet
-
-        logger.info("Successfully connected to Google sheet. Downloading data...")
-        data = sheet.get_all_records()
-
-        if not data:
-            logger.warning("Sheet appears to be empty!")
+        export_url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
+        logger.info(f"Attempting to download from public URL: {export_url}")
+        
+        df = pd.read_csv(export_url)
+        
+        if df.empty:
+            logger.warning("Downloaded data is empty.")
             return pd.DataFrame()
 
-        # Convert to pandas DataFrame
-        df = pd.DataFrame(data)
-        logger.info(f"Successfully extracted {len(df)} rows from Google Sheet")
+        logger.info(f"Successfully extracted {len(df)} rows form Public Google Sheet.")
         return df
 
     except Exception as e:
-        logger.error(f"Failed to extract data from Google Sheet: {e}")
+        logger.error(f"Failed to extract from public sheet: {e}")
         raise
-    
+
 def extract_data(source_type='sheets', **kwargs):
-    # Factory function to handle extraction
+    """Factory function to handle extraction."""
+    # We default to public sheet if that's the requested type
+    # For now, let's treat 'sheets' as public sheet extraction since we have no credentials
     if source_type.lower() == 'sheets':
-        return extract_from_sheet(
-            kwargs.get('sheet_id'),
-            kwargs.get('credentials_path')
-        )
+        return extract_from_public_sheet(kwargs.get('sheet_id'))
     else:
         raise ValueError(f"Unsupported data source type: {source_type}")
