@@ -12,3 +12,14 @@ The Supermarket ETL project requires processing transaction data from a source s
 
 ### Decision 
 I decided to implement a **Dual Database Strategy**, loading transformed data into both **PostgreSQL**  (Relational) and **MongoDB** (NoSQL) simultaneously.
+
+### Consequences
+
+#### PostgreSQL (Relational Transactional)
+* **Pros**:
+    * **Strong Consistency**: Essential for financial data (e.g., `total_amount`).
+    * **SQL Support**: Allows for complex analytical queries (joins, aggregation) familiar to business analysts.
+    * **Scema Enforcement**: Prevents bad data (e.g., text in a price column) from entering a warehouse.
+
+* **Cons**:
+    * Rigid schema requires migration scripts for every change in upstream data structure.
