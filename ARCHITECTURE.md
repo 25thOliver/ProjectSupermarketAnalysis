@@ -17,7 +17,7 @@ I decided to implement a **Dual Database Strategy**, loading transformed data in
 
 #### PostgreSQL (Relational Transactional)
 * **Pros**:
-    * **Strong Consistency**: Essential for financial data (e.g., `total_amount`).
+    * **Strong Consistency (ACID)**: Essential for financial data (e.g., `total_amount`).
     * **SQL Support**: Allows for complex analytical queries (joins, aggregation) familiar to business analysts.
     * **Scema Enforcement**: Prevents bad data (e.g., text in a price column) from entering a warehouse.
 
