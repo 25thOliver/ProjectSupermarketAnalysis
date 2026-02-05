@@ -35,10 +35,12 @@ def main():
         # 2. Transform
         logging.info("Step 2: Transform")
         transformed_data = transform_data(data)
+        logging.info(f"Transformed Data Shape: {transformed_data.shape}") 
 
-        logging.info("\nTransformation Sample...")
-        print(transformed_data.head())
-        logging.info(f"Transformed Data Shape: {transformed_data.shape}")    
+        # 3. Load to PostgreSQL
+        logging.info("Step 3: Load to PostgreSQL")
+        load_to_postgres(transformed_data, Config.POSTGRES_URL)
+       
         
     except Exception as e:
         logging.critical(f"ETL failed: {e}")
